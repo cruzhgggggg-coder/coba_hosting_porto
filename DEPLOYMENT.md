@@ -1,6 +1,6 @@
 # Panduan Hosting Laravel Portfolio
 
-Website kamu sudah siap untuk di-hosting! Ikuti langkah-langkah di bawah ini untuk menghubungkan **Supabase** (Database) dan **Railway** (Web Hosting).
+Website kamu sudah siap untuk di-hosting! Ikuti langkah-langkah di bawah ini untuk menghubungkan **Supabase** (Database) dan **Web Hosting** pilihanmu.
 
 ## 1. Persiapan Database (Supabase)
 1. Pergi ke [Supabase](https://supabase.com/) dan buat project baru.
@@ -12,31 +12,39 @@ Website kamu sudah siap untuk di-hosting! Ikuti langkah-langkah di bawah ini unt
    - `Password`: (Password yang kamu buat saat setup)
    - `Database`: postgres
 
-## 2. Persiapan Web Hosting (Railway)
+---
+
+## OPSI A: Hosting di Railway (Mudah & Mendukung Antrian/Queue)
 1. Pergi ke [Railway](https://railway.app/) dan Login menggunakan akun GitHub kamu.
 2. Klik **New Project** > **Deploy from GitHub repo**.
 3. Pilih repository `coba_hosting_porto`.
-4. Klik **Add Variables** dan masukkan variabel dari `.env` lokal kamu, TERUTAMA variabel database Supabase:
+4. Klik **Add Variables** dan masukkan variabel dari `.env` lokal kamu:
    - `APP_KEY`: (Copy dari file .env)
    - `APP_ENV`: `production`
    - `DB_CONNECTION`: `pgsql`
    - `DB_HOST`: (Host dari Supabase)
-   - `DB_PORT`: `5432`
-   - `DB_DATABASE`: `postgres`
-   - `DB_USERNAME`: `postgres`
    - `DB_PASSWORD`: (Password Supabase kamu)
-   - `FILESYSTEM_DISK`: `public` (Atau gunakan Cloudinary jika sudah ada datanya)
-
-## 3. Menjalankan Perintah Deployment
-Railway akan mendeteksi file `Procfile` yang sudah saya tambahkan. Website kamu akan otomatis ter-build.
-Untuk menjalankan migrasi database di server Railway:
-1. Buka dashboard project di Railway.
-2. Masuk ke tab **Settings** atau **Variables**.
-3. Tambahkan variable: `NIXPACKS_PHP_APP_NAME=laravel`
-4. Di bagian **Post-Install Script** atau **Start Command** (jika menggunakan custom command), pastikan `php artisan migrate --force` dijalankan.
-
-## 4. Update Jika Ada Perubahan
-Setiap kali kamu melakukan `git push` ke repository GitHub, Railway akan otomatis mengupdate website kamu secara live.
 
 ---
-**Catatan:** Saya sudah melakukan `git push` ke repository [https://github.com/cruzhgggggg-coder/coba_hosting_porto.git](https://github.com/cruzhgggggg-coder/coba_hosting_porto.git).
+
+## OPSI B: Hosting di Vercel (Gratis & Sangat Cepat)
+1. Pergi ke [Vercel](https://vercel.com/) dan Login dengan GitHub.
+2. Klik **Add New** > **Project** > Pilih repository `coba_hosting_porto`.
+3. Di bagian **Environment Variables**, masukkan semua isi file `.env` kamu.
+4. Klik **Deploy**. Vercel akan membaca file `vercel.json` yang sudah saya siapkan.
+
+---
+
+## 3. Menjalankan Perintah Deployment
+- **Database Migration:** 
+  - Di **Railway**: Bisa otomatis (tambahkan `php artisan migrate --force` di start command).
+  - Di **Vercel**: Harus dijalankan manual dari komputer kamu setelah `.env` diarahkan ke Supabase:
+  ```bash
+  php artisan migrate --force
+  ```
+
+## 4. Update Jika Ada Perubahan
+Setiap kali kamu melakukan `git push` ke repository GitHub, Vercel/Railway akan otomatis mengupdate website kamu secara live.
+
+---
+**Catatan:** Kode terbaru sudah saya push ke: [https://github.com/cruzhgggggg-coder/coba_hosting_porto.git](https://github.com/cruzhgggggg-coder/coba_hosting_porto.git).

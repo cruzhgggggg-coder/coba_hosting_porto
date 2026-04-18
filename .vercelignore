@@ -1,0 +1,10 @@
+/node_modules
+/vendor
+/storage/*.key
+/.env
+/.phpunit.result.cache
+/public/storage
+/tests
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/views
